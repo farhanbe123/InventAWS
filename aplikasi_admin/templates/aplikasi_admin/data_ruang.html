@@ -1,0 +1,46 @@
+{% extends 'aplikasi_admin/main.html'%} {% block title %} Data Semua Ruang {% endblock %} {% block content %}
+<body style="background-color:#bff1bf;">
+    <div class="container pt-5 pb-5">
+
+        <h4 class="text-center">Data Semua Ruang</h4>
+    
+        <div class="d-flex justify-content-end">
+            <a href="{% url 'create_ruang' %}" class="btn btn-success btn-md">Tambahkan Ruang</a>
+        </div>
+    
+        <table style="background-color:white; border:2px solid black;" class="table table-bordered text-center mt-5">
+            <thead>
+                <th>No</th>
+                <th>Nama Ruang</th>
+                <th>Gedung</th>
+                <th>PJ Ruang</th>
+                <th>Aksi</th>
+            </thead>
+    
+            <tbody>
+                {% for ruang in data_ruang %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{ ruang.ruang }}</td>
+                    <td>{{ ruang.gedung }}</td>
+                    <td>{{ruang.pj_ruang}}</td>
+                    <td>
+                        <div class="d-flex justify-content-center">
+                            <a href="{% url 'update_ruang' ruang.id %}" class="btn btn-sm btn-info mr-2 w-100">Edit</a>
+    
+                            <form action="{% url 'delete_ruang' ruang.id %}" method="post" class="w-100">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm w-100">
+                                Hapus</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+
+{% endblock %}

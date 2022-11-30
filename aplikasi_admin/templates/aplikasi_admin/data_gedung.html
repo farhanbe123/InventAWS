@@ -1,0 +1,44 @@
+{% extends 'aplikasi_admin/main.html'%} {% block title %} Data Semua Gedung {% endblock %} {% block content %}
+<body style="background-color:#bff1bf;">
+    <div class="container pt-5 pb-5">
+
+        <h4 class="text-center">Data Semua Gedung</h4>
+    
+        <div class="d-flex justify-content-end">
+            <a href="{% url 'create_gedung' %}" class="btn btn-success btn-md">Tambahkan Gedung</a>
+        </div>
+    
+        <table style="background-color:white; border:2px solid black;" class="table table-bordered text-center mt-5">
+            <thead>
+                <th>No</th>
+                <th>Nama Gedung</th>
+                <th>PJ Gedung</th>
+                <th>Aksi</th>
+            </thead>
+    
+            <tbody>
+                {% for gedung in data_gedung %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{ gedung.gedung }}</td>
+                    <td>{{ gedung.mg_gedung}}</td>
+                    <td>
+                        <div class="d-flex justify-content-center">
+                            <a href="{% url 'update_gedung' gedung.id %}" class="btn btn-sm btn-info mr-2 w-100">Edit</a>
+    
+                            <form action="{% url 'delete_gedung' gedung.id %}" method="post" class="w-100">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm w-100">
+                                Hapus</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'aplikasi_admin/main.html'%} {% load static %} {% block title %} Data Semua Barang {% endblock %} {% block content %}
+<body style="background-color:#bff1bf;">
+    <div class="container pt-5 pb-5">
+
+        <h4 class="text-center">Data Semua Barang</h4>
+    
+        <div class="d-flex justify-content-end">
+            <a href="{% url 'create_barang' %}" class="btn btn-success btn-md">Tambahkan Barang</a>
+        </div>
+    
+        <table style="background-color:white; border:2px solid black;" class="table table-bordered text-center mt-5">
+            <thead>
+                <th>No</th>
+                <th>Kode </th>
+                <th>Nama </th>
+                <th>Merk</th>
+                <th>BAST Perolehan</th>
+                <th>Aksi</th>
+            </thead>
+    
+            <tbody>
+                {% for barang in data_barang%}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{ barang.kode_barang }}</td>
+                    <td>{{ barang.nama_barang}}</td>
+                    <td>{{ barang.merk}}</td>
+                    <td><a href="{{ barang.bast_perolehan.url }}" target="_blank" rel="noopener noreferrer">Download</a></td>
+                    <td>
+                        <div class="d-flex justify-content-center">
+                            <a href="{% url 'update_barang' barang.id %}" class="btn btn-sm btn-info mr-2 w-100">Edit</a>
+    
+                            <form action="{% url 'delete_barang' barang.id %}" method="post" class="w-100">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm w-100">
+                                Hapus</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+
+{% endblock %}

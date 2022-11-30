@@ -1,0 +1,31 @@
+{% extends 'aplikasi_pegawai/main.html'%} {% block title %} Dashboard Pegawai {% endblock %} {%load static %} {% block content %}
+<body style="background-color:#bff1bf;">
+    <div class="container pt-5 pb-5">
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-start">
+                    <div>
+                        <h4>Pengajuan Peminjaman</h4>
+                        <a class="btn btn-primary btn-md" href="{% url 'pegawai_create_peminjaman' %}"> Ajukan</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-start">
+                    <div>
+                        <h4>Data Barang</h4>
+                        <a class="btn btn-primary btn-md" href="{% url 'pegawai_data_barang' %}"> Lihat Data </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'aplikasi_admin/main.html'%} {% block title %} Dashboard Admin {% endblock %} {% block content %} {% load static%}
+<body style="background-color:#bff1bf;">
+    <div class="container pt-5 pb-5">
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-start">
+                    <div>
+                        <h4>Data Peminjaman</h4>
+                        <p class="text-muted">Kelola Data Peminjaman</p>
+                        <a class="btn btn-primary btn-md" href="{% url 'data_peminjaman' %}"> Lihat Data </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-start">
+                    <div>
+                        <h4>Data Gedung</h4>
+                        <p class="text-muted">Kelola Data Gedung</p>
+                        <a class="btn btn-primary btn-md" href="{% url 'data_gedung' %}"> Lihat Data </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-start">
+                    <div>
+                        <h4>Data Ruangan</h4>
+                        <p class="text-muted">Kelola Data Ruangan</p>
+                        <a class="btn btn-primary btn-md" href="{% url 'data_ruang' %}"> Lihat Data </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-start">
+                    <div>
+                        <h4>Data Barang</h4>
+                        <p class="text-muted">Kelola Data Barang</p>
+                        <a class="btn btn-primary btn-md" href="{% url 'data_barang' %}"> Lihat Data </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-start">
+                    <div>
+                        <h4>Data Pegawai</h4>
+                        <p class="text-muted">Kelola Data Pegawai</p>
+                        <a class="btn btn-primary btn-md" href="{% url 'data_pegawai' %}"> Lihat Data </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+</body>
+
+
+
+{% endblock %}

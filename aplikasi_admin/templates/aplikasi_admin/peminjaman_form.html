@@ -1,0 +1,137 @@
+{% extends 'aplikasi_admin/main.html' %} {% load static %} {% block content %}
+<body style="background-color:#bff1bf;">
+    <div class="container pt-5 pb-5">
+
+        <div class="card">
+            <div class="card-body">
+                <form method="POST" action="" enctype="multipart/form-data">
+                    {% csrf_token %}
+    
+    
+                    <div class="form-group">
+                        <label for="pegawai_id">Pegawai / Peminjam</label>
+                        <select name="pegawai_id" id="pegawai_id" class="form-control">
+                            {% for pegawai in data_pegawai %}
+                                <option value="{{pegawai.id}}">{{pegawai.nama_pegawai}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="gedung_id">Gedung</label>
+                        <select name="gedung_id" id="gedung_id" class="form-control">
+                            {% for gedung in data_gedung %}
+    
+                            <option value="{{gedung.id}}">{{gedung.gedung}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+    
+                    <p class="small text-danger">Pilih Gedung untuk memunculkan Pilihan ruangan</p>
+    
+    
+                    <div class="form-group">
+                        <div class="hidden" id="ruangField">
+                            <label for="ruang_id">Ruangan</label>
+                            <select name="ruang_id" id="ruang_id" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="barang_id">Barang</label>
+                        <select name="barang_id" type="text" class="form-control" id="barang_id">
+                            {% for barang in data_barang %}
+                                <option value="{{barang.id}}">{{barang.nama_barang}} - Stok {{barang.stock}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+    
+    
+                    <div class="form-group">
+                        <label for="jumlah">Jumlah </label>
+                        <input type="number" class="form-control" name="jumlah" id="jumlah">
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="tgl_pinjam">Tanggal Peminjaman</label>
+                        <input type="date" name="tgl_pinjam" id="tgl_pinjam" class="form-control">
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="tgl_kembali">Tanggal Pengembalian</label>
+                        <input type="date" name="tgl_kembali" id="tgl_kembali" class="form-control">
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="bast_disposisi">BAST Disposisi</label>
+    
+                        <input type="file" name="bast_disposisi" id="bast_disposisi" class="form-control">
+                    </div>
+                    <button class="btn w-100 mx-0 btn btn-danger text-white mt-3">Tambahkan Peminjaman</button>
+                </form>
+            </div>
+        </div>
+    
+    </div>
+    
+    <script>
+        let gedungId = document.getElementById('gedung_id');
+        let ruangField = document.getElementById('ruang_id');
+    
+        let ruangContainer = document.getElementById('ruangField');
+        window.addEventListener('load', function() {
+            ruangContainer.hidden = true;
+        })
+    
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+    
+    
+        gedungId.addEventListener('change', function() {
+            ruangContainer.hidden = true;
+            ruangField.innerHTML = ""
+    
+            ruangField.innerHTML += ``;
+            let data = {
+                "gedung_id": gedungId.value
+            }
+    
+            fetch('/aplikasi_admin/getruang/', {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    },
+                    body: JSON.stringify(data)
+                }, )
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach((ruang) => {
+                        ruangField.innerHTML += `<option value="${ruang.pk}">${ruang.fields.ruang}</option>`;
+                    })
+                });
+            ruangContainer.hidden = false;
+        })
+    </script>
+</body>
+
+
+
+
+{% endblock%}

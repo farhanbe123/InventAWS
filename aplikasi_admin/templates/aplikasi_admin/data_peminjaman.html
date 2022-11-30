@@ -1,0 +1,58 @@
+{% extends 'aplikasi_admin/main.html'%} {% block title %} Data Semua Peminjaman {% endblock %} {% block content %}
+<body style="background-color:#bff1bf;">
+    <div class="container pt-5 pb-5">
+
+        <h4 class="text-center">Data Peminjaman</h4>
+    
+        <div class="d-flex justify-content-end">
+            <a href="{% url 'create_peminjaman' %}" class="btn btn-success btn-md">Tambah Peminjaman</a>
+        </div>
+    
+        <a href="{% url 'printlaporan' %}" class="btn btn-success">Print Laporan</a>
+    
+        <table style="background-color:white; border:2px solid black;" class="table table-bordered text-center mt-5">
+            <thead>
+                <th>No</th>
+                <th>Nomor Peminjaman</th>
+                <th>Peminjam</th>
+                <th>Barang</th>
+                <th>Jumlah Barang</th>
+                <th>Gedung</th>
+                <th>Ruang</th>
+                <th>BAST Disposisi</th>
+                <th>Aksi</th>
+    
+            </thead>
+    
+            <tbody>
+                {% for peminjaman in data_peminjaman %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{ peminjaman.peminjaman.no_peminjaman }}</td>
+                    <td>{{ peminjaman.peminjaman.pegawai.nama_pegawai}}</td>
+                    <td>{{ peminjaman.barang.nama_barang}}</td>
+                    <td>{{ peminjaman.jumlah}}</td>
+                    <td>{{ peminjaman.gedung.gedung}}</td>
+                    <td>{{ peminjaman.ruang.ruang}}</td>
+                    <td><a href="{{ peminjaman.peminjaman.bast_disposisi }}" target="_blank" rel="noopener noreferrer">Download</a></td>
+    
+                    <td>
+                        <div class="d-flex justify-content-center">
+                            <a href="{% url 'update_peminjaman' peminjaman.id %}" class="btn btn-sm btn-info mr-2 w-100">Edit</a>
+    
+                            <form action="{% url 'delete_peminjaman' peminjaman.id %}" method="post" class="w-100">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm w-100">
+                                Hapus</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+
+{% endblock %}
