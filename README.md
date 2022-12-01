@@ -7,3 +7,6 @@ Versi Python yang dipakai : Python 3.8.10
 Untuk menjalankan website ini, silahkan export 'inventarisbmn_db.sql' di phpAdmin dengan nama 'inventarisbmn_db'
 Silahkan install library yang dipakai dengan memasukkan code di command line
 'pip install -r requirements.txt'
+
+# Template
+Template yang dipakai adalah Django
