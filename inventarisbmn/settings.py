@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'inventarisbmn.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'inventarisbmn-db',
+        'NAME': 'inventarisbmn_db',
         'USER': 'root',
         'PASSWORD': 'favaloro',
         'HOST': 'inventarisbmn-db.c1wxswlidl2x.ap-southeast-1.rds.amazonaws.com',
